@@ -19,6 +19,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 
@@ -28,17 +30,33 @@ public class AnagramDictionary {
     private static final int DEFAULT_WORD_LENGTH = 3;
     private static final int MAX_WORD_LENGTH = 7;
     private Random random = new Random();
+    private HashSet wordSet;
     private ArrayList wordList;
 
     public AnagramDictionary(Reader reader) throws IOException {
         BufferedReader in = new BufferedReader(reader);
-        String line;
+        String line, key;
 
+        wordSet = new HashSet();
         wordList = new ArrayList();
 
-        while((line = in.readLine()) != null) {
+        while ((line = in.readLine()) != null) {
             String word = line.trim();
+            wordSet.add(word);
+            wordList.add(word);
+            ArrayList arrayList = new ArrayList();
+            key = alphabeticalOrder(word);
         }
+    }
+
+    /**
+     * @param word :   word to be sort
+     * @return string value that sorted
+     */
+    private String alphabeticalOrder(String word) {
+        char[] chars = word.toCharArray();
+        Arrays.sort(chars);
+        return new String(chars);
     }
 
     public boolean isGoodWord(String word, String base) {
