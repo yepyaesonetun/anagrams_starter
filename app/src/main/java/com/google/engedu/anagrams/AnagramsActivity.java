@@ -69,8 +69,7 @@ public class AnagramsActivity extends AppCompatActivity {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 boolean handled = false;
-                if (actionId == EditorInfo.IME_ACTION_GO || (
-                        actionId == EditorInfo.IME_NULL && event != null && event.getAction() == KeyEvent.ACTION_DOWN)) {
+                if (actionId == EditorInfo.IME_ACTION_GO) {
                     processWord(editText);
                     handled = true;
                 }
@@ -127,7 +126,7 @@ public class AnagramsActivity extends AppCompatActivity {
         TextView resultView = (TextView) findViewById(R.id.resultView);
         if (currentWord == null) {
             currentWord = dictionary.pickGoodStarterWord();
-            anagrams = dictionary.getAnagrams(currentWord);
+            anagrams = dictionary.getAnagramsWithOneMoreLetter(currentWord);
             gameStatus.setText(Html.fromHtml(String.format(START_MESSAGE, currentWord.toUpperCase(), currentWord)));
             fab.setImageResource(android.R.drawable.ic_menu_help);
             fab.hide();
